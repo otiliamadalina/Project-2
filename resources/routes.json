@@ -1,0 +1,55 @@
+{
+  "loginPage": "https://www.saucedemo.com/",
+  "inventoryPage": "https://www.saucedemo.com/inventory.html",
+  "cartPage": "https://www.saucedemo.com/cart.html",
+  "checkoutPageOne": "https://www.saucedemo.com/checkout-step-one.html",
+  "checkoutPageTwo": "https://www.saucedemo.com/checkout-step-two.html",
+  "checkoutComplete": "https://www.saucedemo.com/checkout-complete.html",
+
+  "inventoryPageLinks": {
+    "inventorySideBar": "inventory-sidebar-link",
+    "aboutSideBar": "about-sidebar-link",
+    "logoutSideBar": "logout-sidebar-link",
+    "resetSideBar": "reset-sidebar-link"
+  },
+
+  "mainUltimateLinks": {
+    "mainUltimateLink": "https://ultimateqa.com/",
+    "logoLink": "https://ultimateqa.com/",
+    "servicePage": "https://ultimateqa.com/consulting/",
+    "aboutPage": "https://ultimateqa.com/about/",
+    "blogPage": "https://ultimateqa.com/blog/",
+    "newsletterPage": "https://ultimateqa.ck.page/profile",
+    "educationDropdown": "#",
+    "schedulPage":"https://forms.clickup.com/2314027/p/f/26ktb-6387/56LKNUZ9BDYXSC73SY/unlock-your-automation-potentialwitha-free-framework-assessment",
+    "fullStory1":"https://ultimateqa.com/automation-program-from-scratch/",
+    "fullStory2":"https://ultimateqa.com/bank-decreases-testing-speed/",
+    "fullStory3": "https://ultimateqa.com/automation-development-for-healthcare-organization/",
+    "fullStory4":"https://ultimateqa.com/automation-saves-hospitality-business-66-in-test-execution-time/",
+    "fullStory5":"https://ultimateqa.com/from-novice-to-senior-developer/%20",
+    "healthButton":"",
+    "financeButton":"",
+    "hospitalityButton":"",
+    "healthcareButton":"",
+    "educationButton":"",
+    "readmoreButton":"https://ultimateqa.com/blog/",
+
+    "linkedinLink":"https://www.linkedin.com/company/ultimate-qa",
+    "xLink":"https://x.com/ultimateqahq",
+    "facebookLink":"https://www.facebook.com/Ultimateqa1",
+    "instagramLink":"https://www.instagram.com/ultimate.qa",
+    "youtubeLink":"https://www.youtube.com/@UltimateQA",
+
+    "aboutLink":"https://ultimateqa.com/about/",
+    "blogLink":"https://ultimateqa.com/blog/",
+    "javaLink":"https://ultimateqa.kit.com/academy-coming-soon",
+    "contactLink":"https://ultimateqa.com/contact/",
+    "freeCoursesLink":"https://courses.ultimateqa.com/collections",
+    "seleniumLink":"https://academy.ultimateqa.com/java-sdet",
+    "seleniumCLink":"https://courses.ultimateqa.com/courses/selenium-with-c",
+    "seleniumResourcesLink":"https://ultimateqa.com/best-selenium-webdriver-resources/",
+    "automationLink":"https://ultimateqa.com/automation/",
+    "termsAndCondLink":"https://courses.ultimateqa.com/pages/terms",
+    "privacyPolicyLink":"https://courses.ultimateqa.com/pages/privacy"
+  }
+}
