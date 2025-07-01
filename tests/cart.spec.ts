@@ -24,25 +24,27 @@ test.beforeEach(async ({ app }) => {
   });
 });
 test.describe("Cart tests", { tag: ["@cart", "@regression"] }, async () => {
-test("SauceDemo verify Cart Products", async ({ app }) => {
-  await test.step("Products Title", async () => {
-    await app.inventory.checkProductHeader(strings.inventoryPage.productHeader);
-  });
+  test("SauceDemo verify Cart Products", async ({ app }) => {
+    await test.step("Products Title", async () => {
+      await app.inventory.checkProductHeader(
+        strings.inventoryPage.productHeader
+      );
+    });
 
-  await test.step("Verify products", async () => {
-    await app.inventory.verifyProducts();
-  });
+    await test.step("Verify products", async () => {
+      await app.inventory.verifyProducts();
+    });
 
-  await test.step("Add to Cart", async () => {
-    await app.inventory.addProductsToCart();
-  });
+    await test.step("Add to Cart", async () => {
+      await app.inventory.addProductsToCart();
+    });
 
-  await test.step("Go to Cart", async () => {
-    await app.inventory.goToCart();
-  });
+    await test.step("Go to Cart", async () => {
+      await app.inventory.goToCart();
+    });
 
-  await test.step("Verify Cart Products", async () => {
-    await app.cart.verifyCartProducts();
+    await test.step("Verify Cart Products", async () => {
+      await app.cart.verifyCartProducts();
+    });
   });
-});
 });

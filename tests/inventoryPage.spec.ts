@@ -24,46 +24,50 @@ test.beforeEach(async ({ app }) => {
   });
 });
 
-test.describe("Inventory tests", { tag: ["@inventory", "@regression"] }, async () => {
-  test("Menu", async ({ app }) => {
-    await test.step("Verify menu", async () => {
-      await app.inventory.checkMenuButton();
+test.describe(
+  "Inventory tests",
+  { tag: ["@inventory", "@regression"] },
+  async () => {
+    test("Menu", async ({ app }) => {
+      await test.step("Verify menu", async () => {
+        await app.inventory.checkMenuButton();
+      });
+
+      await test.step("Verify Menu Links", async () => {
+        await app.inventory.verifyMenuLinks();
+      });
+
+      await test.step("Close Menu", async () => {
+        await app.inventory.closeMenu();
+      });
     });
 
-    await test.step("Verify Menu Links", async () => {
-      await app.inventory.verifyMenuLinks();
+    test("SauceDemo verify Products", async ({ app }) => {
+      await test.step("Products Title", async () => {
+        await app.inventory.checkProductHeader(
+          strings.inventoryPage.productHeader
+        );
+      });
+
+      await test.step("Verify products", async () => {
+        await app.inventory.verifyProducts();
+      });
     });
 
-    await test.step("Close Menu", async () => {
-      await app.inventory.closeMenu();
-    });
-  });
+    test("SauceDemo verify Add to Cart", async ({ app }) => {
+      await test.step("Products Title", async () => {
+        await app.inventory.checkProductHeader(
+          strings.inventoryPage.productHeader
+        );
+      });
 
-  test("SauceDemo verify Products", async ({ app }) => {
-    await test.step("Products Title", async () => {
-      await app.inventory.checkProductHeader(
-        strings.inventoryPage.productHeader
-      );
-    });
+      await test.step("Verify products", async () => {
+        await app.inventory.verifyProducts();
+      });
 
-    await test.step("Verify products", async () => {
-      await app.inventory.verifyProducts();
+      await test.step("Add to Cart", async () => {
+        await app.inventory.addProductsToCart();
+      });
     });
-  });
-
-  test("SauceDemo verify Add to Cart", async ({ app }) => {
-    await test.step("Products Title", async () => {
-      await app.inventory.checkProductHeader(
-        strings.inventoryPage.productHeader
-      );
-    });
-
-    await test.step("Verify products", async () => {
-      await app.inventory.verifyProducts();
-    });
-
-    await test.step("Add to Cart", async () => {
-      await app.inventory.addProductsToCart();
-    });
-  });
-});
+  }
+);
