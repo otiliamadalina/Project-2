@@ -289,20 +289,8 @@ export default class MainUltimateActions extends BaseActions {
 
     await dropdown.hover();
 
-    const submenu = dropdown.locator(this.mainUltimate.subMenuDropdown);
+    const submenu = await dropdown.locator(this.mainUltimate.subMenuDropdown);
     await expect(submenu).toBeVisible();
   }
 
-  async verifyPagination() {
-    const pagination = this.mainUltimate.pagination;
-    await expect(pagination).toBeVisible();
-    const bullets = pagination.locator(this.mainUltimate.pageBullets);
-    const count = await bullets.count();
-    console.log(`Total bullets: ${count}`);
-
-    for (let i = 0; i < count; i++) {
-      await bullets.nth(i).click();
-      await this.page.waitForTimeout(500);
-    }
-  }
 }

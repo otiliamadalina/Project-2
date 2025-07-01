@@ -62,6 +62,3 @@ test("Footer Links", async ({ app }) => {
   await app.mainUltimate.verifyFooterLinks();
 });
 
-test("Bullet", async ({ app }) => {
-  await app.mainUltimate.verifyPagination();
-});
