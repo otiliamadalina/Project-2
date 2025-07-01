@@ -11,63 +11,65 @@ test.beforeEach(async ({ app }) => {
   });
 });
 
-test("Verify Login Credentials", async ({ app }) => {
-  await test.step("Verify Headings", async () => {
-    await app.login.acceptedUsernameIsVisible();
-    await app.login.acceptedPasswordIsVisible();
-  });
-});
-
-test("Standard Credentials", async ({ app }) => {
-  await test.step("Input Standard Username&Password", async () => {
-    await app.login.checkLoginFields();
-    await app.login.completeLoginForm(
-      strings.loginPage.acceptedUsernames.standardUser,
-      strings.loginPage.passwordForAllUsers
-    );
+test.describe("Login tests", { tag: ["@login", "@regression"] }, async () => {
+  test("Verify Login Credentials", async ({ app }) => {
+    await test.step("Verify Headings", async () => {
+      await app.login.acceptedUsernameIsVisible();
+      await app.login.acceptedPasswordIsVisible();
+    });
   });
 
-  await test.step("Login Button", async () => {
-    await app.login.checkLoginButton();
-  });
-});
+  test("Standard Credentials", async ({ app }) => {
+    await test.step("Input Standard Username&Password", async () => {
+      await app.login.checkLoginFields();
+      await app.login.completeLoginForm(
+        strings.loginPage.acceptedUsernames.standardUser,
+        strings.loginPage.passwordForAllUsers
+      );
+    });
 
-test("Locked out Credentials", async ({ app }) => {
-  await test.step("Input Locked out Username&Password", async () => {
-    await app.login.checkLoginFields();
-    await app.login.completeLoginForm(
-      strings.loginPage.acceptedUsernames.lockedOutUser,
-      strings.loginPage.passwordForAllUsers
-    );
-  });
-
-  await test.step("Login Button", async () => {
-    await app.login.checkLoginButton();
+    await test.step("Login Button", async () => {
+      await app.login.checkLoginButton();
+    });
   });
 
-  await test.step("Error for Locked out Credentials", async () => {
-    await app.login.errorMessageAsExpected(
-      strings.loginPage.errorMessages.lockedOutError
-    );
-  });
-});
+  test("Locked out Credentials", async ({ app }) => {
+    await test.step("Input Locked out Username&Password", async () => {
+      await app.login.checkLoginFields();
+      await app.login.completeLoginForm(
+        strings.loginPage.acceptedUsernames.lockedOutUser,
+        strings.loginPage.passwordForAllUsers
+      );
+    });
 
-test("Wrong Credentials", async ({ app }) => {
-  await test.step("Input Wrong Username&Password", async () => {
-    await app.login.checkLoginFields();
-    await app.login.completeLoginForm(
-      strings.loginPage.acceptedUsernames.wrongUser,
-      strings.loginPage.wrongPassword
-    );
+    await test.step("Login Button", async () => {
+      await app.login.checkLoginButton();
+    });
+
+    await test.step("Error for Locked out Credentials", async () => {
+      await app.login.errorMessageAsExpected(
+        strings.loginPage.errorMessages.lockedOutError
+      );
+    });
   });
 
-  await test.step("Login Button", async () => {
-    await app.login.checkLoginButton();
-  });
+  test("Wrong Credentials", async ({ app }) => {
+    await test.step("Input Wrong Username&Password", async () => {
+      await app.login.checkLoginFields();
+      await app.login.completeLoginForm(
+        strings.loginPage.acceptedUsernames.wrongUser,
+        strings.loginPage.wrongPassword
+      );
+    });
 
-  await test.step("Error for Wrong Credentials", async () => {
-    await app.login.errorMessageAsExpected(
-      strings.loginPage.errorMessages.wrongCredentialsError
-    );
+    await test.step("Login Button", async () => {
+      await app.login.checkLoginButton();
+    });
+
+    await test.step("Error for Wrong Credentials", async () => {
+      await app.login.errorMessageAsExpected(
+        strings.loginPage.errorMessages.wrongCredentialsError
+      );
+    });
   });
 });

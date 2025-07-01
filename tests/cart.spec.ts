@@ -23,7 +23,7 @@ test.beforeEach(async ({ app }) => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
 });
-
+test.describe("Cart tests", { tag: ["@cart", "@regression"] }, async () => {
 test("SauceDemo verify Cart Products", async ({ app }) => {
   await test.step("Products Title", async () => {
     await app.inventory.checkProductHeader(strings.inventoryPage.productHeader);
@@ -45,4 +45,4 @@ test("SauceDemo verify Cart Products", async ({ app }) => {
     await app.cart.verifyCartProducts();
   });
 });
-
+});

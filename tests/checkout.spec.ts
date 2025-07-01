@@ -24,6 +24,8 @@ test.beforeEach(async ({ app }) => {
   });
 });
 
+test.describe("Checkout tests", { tag: ["@checkout", "@regression"] }, async () => {
+
 test("SauceDemo Verify Checkout Page", async ({ app }) => {
   await test.step("Products Title", async () => {
     await app.inventory.checkProductHeader(strings.inventoryPage.productHeader);
@@ -135,4 +137,5 @@ test("SauceDemo Checkout Blank Fields", async ({ app }) => {
   await test.step("Inventory URL", async () => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
+});
 });

@@ -20,45 +20,50 @@ test.beforeEach(async ({ app }) => {
   });
 });
 
-test("Main Menu", async ({ app }) => {
-  await test.step("Logo", async () => {
-    await app.mainUltimate.verifyLogo();
-  });
+test.describe(
+  "MainUltimate tests",
+  { tag: ["@mainUltimate", "@regression"] },
+  async () => {
+    test("Main Menu", async ({ app }) => {
+      await test.step("Logo", async () => {
+        await app.mainUltimate.verifyLogo();
+      });
 
-  await test.step("Menu Links", async () => {
-    await app.mainUltimate.verifyMenuLinks();
-  });
+      await test.step("Menu Links", async () => {
+        await app.mainUltimate.verifyMenuLinks();
+      });
 
-  await test.step("Search bar", async () => {
-    await app.mainUltimate.verifySearchButton();
-  });
+      await test.step("Search bar", async () => {
+        await app.mainUltimate.verifySearchButton();
+      });
 
-  await test.step("Education Dropdown", async () => {
-    await app.mainUltimate.verifyDropdown();
-  });
-});
+      await test.step("Education Dropdown", async () => {
+        await app.mainUltimate.verifyDropdown();
+      });
+    });
 
-test("Verify Headings", async ({ app }) => {
-  await app.mainUltimate.verifyHeadings()
-});
+    test("Verify Headings", async ({ app }) => {
+      await app.mainUltimate.verifyHeadings();
+    });
 
-test("Verify inner Texts", async ({ app }) => {
-  await app.mainUltimate.verifyInnerTexts();
-});
+    test("Verify inner Texts", async ({ app }) => {
+      await app.mainUltimate.verifyInnerTexts();
+    });
 
-test("Verify Module Headers", async ({ app }) => {
-  await app.mainUltimate.verifyModuleHeaders();
-});
+    test("Verify Module Headers", async ({ app }) => {
+      await app.mainUltimate.verifyModuleHeaders();
+    });
 
-test("Verify Images", async ({ app }) => {
-  await app.mainUltimate.verifyAllImages();
-});
+    test("Verify Images", async ({ app }) => {
+      await app.mainUltimate.verifyAllImages();
+    });
 
-test("Verify Buttons", async ({ app }) => {
-  await app.mainUltimate.verifyButtons();
-});
+    test("Verify Buttons", async ({ app }) => {
+      await app.mainUltimate.verifyButtons();
+    });
 
-test("Footer Links", async ({ app }) => {
-  await app.mainUltimate.verifyFooterLinks();
-});
-
+    test("Footer Links", async ({ app }) => {
+      await app.mainUltimate.verifyFooterLinks();
+    });
+  }
+);
