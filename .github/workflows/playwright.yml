@@ -1,4 +1,5 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [main, master]
@@ -6,9 +7,23 @@ on:
     branches: [main, master]
 
 jobs:
-  test:
-    timeout-minutes: 60
+  security-scan:
+    name: Security Scan
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+      - name: Run npm audit for vulnerabilities
+        run: npm audit --audit-level=high
+
+  playwright-tests:
+    name: Playwright Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,3 +41,6 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 3
+      - name: Run Playwright smoke tests with retry
+        run: npx playwright test --grep @smoke --project=chromium
+       
