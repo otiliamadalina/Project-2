@@ -18,7 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Run Playwright tests for selected page
         run: |
           echo "Testing page: ${{ github.event.inputs.page }}"
-          npx playwright test --grep @${{ github.event.inputs.page }} --project=chromium    npm run test -- --page=${{ inputs.page }}
+          npx playwright test --grep @${{ github.event.inputs.page }} --project=chromium
