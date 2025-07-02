@@ -1,6 +1,9 @@
 name: Cart Tests
 on:
   workflow_dispatch: {}
+  schedule:
+    - cron: "45 9,11,14 * 7-8 1-5"
+    
 jobs:
   test:
     timeout-minutes: 60
