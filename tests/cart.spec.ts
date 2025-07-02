@@ -23,6 +23,7 @@ test.beforeEach(async ({ app }) => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
 });
+
 test.describe("Cart tests", { tag: ["@cart", "@regression"] }, async () => {
   test("SauceDemo verify Cart Products", async ({ app }) => {
     await test.step("Products Title", async () => {
@@ -32,18 +33,22 @@ test.describe("Cart tests", { tag: ["@cart", "@regression"] }, async () => {
     });
 
     await test.step("Verify products", async () => {
+      console.log("Running verifyProducts.");
       await app.inventory.verifyProducts();
     });
 
     await test.step("Add to Cart", async () => {
+      console.log("Running add to cart.");
       await app.inventory.addProductsToCart();
     });
 
     await test.step("Go to Cart", async () => {
+      console.log("Running go to cart.");
       await app.inventory.goToCart();
     });
 
     await test.step("Verify Cart Products", async () => {
+      console.log("Running cart products.");
       await app.cart.verifyCartProducts();
     });
   });
