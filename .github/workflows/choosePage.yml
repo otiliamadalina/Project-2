@@ -18,8 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run tests for selected page
+      - name: Run Playwright tests for selected page
         run: |
-          echo "Testing page: ${{ inputs.page }}"
-        
-          npm run test -- --page=${{ inputs.page }}
+          echo "Testing page: ${{ github.event.inputs.page }}"
+          npx playwright test --grep @${{ github.event.inputs.page }} --project=chromium    npm run test -- --page=${{ inputs.page }}
