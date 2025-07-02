@@ -2,8 +2,10 @@ import routes from "../resources/routes.json";
 import strings from "../resources/strings.json";
 import test from "./test";
 
+test.describe("Login tests", { tag: ["@smoke"] }, () => {
 test.beforeEach(async ({ app }) => {
   await test.step("Access Login Page", async () => {
+    console.log("Access login page.");
     await app.base.navigateTo(routes.loginPage);
     await app.navigation.pageUrlAsExpected(routes.loginPage);
     await app.common.browserTabTitleAsExpected(strings.loginPage.pageTitle);
@@ -11,6 +13,7 @@ test.beforeEach(async ({ app }) => {
   });
 
   await test.step("Login", async () => {
+    console.log("Login.");
     await app.login.checkLoginFields();
     await app.login.completeLoginForm(
       strings.loginPage.acceptedUsernames.standardUser,
@@ -23,7 +26,7 @@ test.beforeEach(async ({ app }) => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
 });
-
+});
 test.describe("Cart tests", { tag: ["@cart", "@regression"] }, async () => {
   test("SauceDemo verify Cart Products", async ({ app }) => {
     await test.step("Products Title", async () => {
