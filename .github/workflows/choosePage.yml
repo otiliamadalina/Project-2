@@ -1,0 +1,25 @@
+name: Choose Page Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      page:
+        description: "Select page"
+        type: choice
+        options:
+          - login
+          - inventory
+          - cart
+          - checkout
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tests for selected page
+        run: |
+          echo "Testing page: ${{ inputs.page }}"
+        
+          npm run test -- --page=${{ inputs.page }}
