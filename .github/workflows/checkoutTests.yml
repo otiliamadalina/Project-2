@@ -1,6 +1,6 @@
 name: Checkout Tests
 on:
-  workflow_dispatch: {}
+  #workflow_dispatch: {}
   schedule:
     - cron: "45 9,11,14 * 7-8 1-5" # 9:45, 11:45, 14:45, * - in fiecare zi, 7-8 - iulie, august, 1-5 - luni-vineri
 jobs:
