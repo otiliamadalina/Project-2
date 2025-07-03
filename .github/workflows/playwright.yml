@@ -15,8 +15,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - name: Install dependencies
         run: npm ci
+
       - name: Run npm audit for vulnerabilities
         run: npm audit --audit-level=high
 
@@ -54,4 +56,24 @@ jobs:
         message: |
           The ${{ github.event_name }} event triggered final step.
           echo This event is a pull request that had an assignee removed.
+
+    - uses: actions/checkout@master
+    - name: send photo message
+      uses: appleboy/telegram-action@master
+      with:
+       to: ${{ secrets.TELEGRAM_TO }}
+       token: ${{ secrets.TELEGRAM_TOKEN }}
+       message: send photo message
+       photo: tests/github.png
+       document: tests/gophercolor.png  
+
+    - name: Send Inline Telegram Message
+      uses: cbrgm/telegram-github-action@v1
+      with:
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          to: ${{ secrets.TELEGRAM_TO }}
+          message: |
+            New commit by ${{ github.actor }}!
+            Commit: ${{ github.event.head_commit.message }}
+            Repository: ${{ github.repository }}   
       
