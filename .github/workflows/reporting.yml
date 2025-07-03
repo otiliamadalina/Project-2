@@ -118,18 +118,14 @@ jobs:
             "embeds": [
               {
                 "type": "rich",
-                "title": "🔧 CI/CD Notification",
-                "description": "🚀 New commit by **'"$ACTOR"'**\n📂 Repository: **'"$REPO"'**\n🔗 Report: https://otiliamadalina.github.io/Project-2/",
+                "title": "🚀 New commit by ${{ github.actor }}",
+                "description": "**📂 Repository:** ${{ github.repository }}\n**📄 Raport:** https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}",
                 "color": 2123412,
-                "thumbnail": {
-                  "url": "https://avatars.githubusercontent.com/u/160980408?v=4"
-                },
                 "author": {
                   "name": "${{ github.actor }}",
                   "url": "https://github.com/${{ github.actor }}",
                   "icon_url": "https://avatars.githubusercontent.com/u/${{ github.actor }}?v=4"
-                },
-                "url": "https://github.com/otiliamadalina/Project-2.git"
+                }
               }
             ]
           }' "${{ secrets.WEBHOOK_URL }}")
