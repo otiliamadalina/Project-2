@@ -2,7 +2,7 @@ import routes from "../resources/routes.json";
 import strings from "../resources/strings.json";
 import test from "./test";
 
-test.describe("Login tests", { tag: ["@smoke"] }, () => {
+test.describe("Cart tests", { tag: ["@smoke"] }, () => {
 test.beforeEach(async ({ app }) => {
   await test.step("Access Login Page", async () => {
     console.log("Access login page.");
@@ -26,9 +26,8 @@ test.beforeEach(async ({ app }) => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
 });
-});
-test.describe("Cart tests", { tag: ["@cart", "@regression"] }, async () => {
-  test("SauceDemo verify Cart Products", async ({ app }) => {
+
+test("SauceDemo verify Cart Products", async ({ app }) => {
     await test.step("Products Title", async () => {
       await app.inventory.checkProductHeader(
         strings.inventoryPage.productHeader

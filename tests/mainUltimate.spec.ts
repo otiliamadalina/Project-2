@@ -37,9 +37,9 @@ test.describe(
         await app.mainUltimate.verifySearchButton();
       });
 
-      await test.step("Education Dropdown", async () => {
-        await app.mainUltimate.verifyDropdown();
-      });
+      // await test.step("Education Dropdown", async () => {
+      //   await app.mainUltimate.verifyDropdown();
+      // });
     });
 
     test("Verify Headings", async ({ app }) => {

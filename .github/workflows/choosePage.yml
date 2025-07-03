@@ -29,14 +29,14 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Run Playwright tests for selected page
+        run: |
+          echo "Testing page: ${{ github.event.inputs.page }}"
+          npx playwright test --grep @${{ github.event.inputs.page }} --project=chromium
+      
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 3
-
-      - name: Run Playwright tests for selected page
-        run: |
-          echo "Testing page: ${{ github.event.inputs.page }}"
-          npx playwright test --grep @${{ github.event.inputs.page }} --project=chromium
