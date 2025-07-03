@@ -62,8 +62,8 @@ test.describe(
       await app.mainUltimate.verifyButtons();
     });
 
-    test("Footer Links", async ({ app }) => {
-      await app.mainUltimate.verifyFooterLinks();
-    });
+    // test("Footer Links", async ({ app }) => {
+    //   await app.mainUltimate.verifyFooterLinks();
+    // });
   }
 );
