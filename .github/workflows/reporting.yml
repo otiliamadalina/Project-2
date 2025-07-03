@@ -1,4 +1,4 @@
-name: Reporting Tests
+name: reporting-tests
 
 on:
   workflow_dispatch: {}

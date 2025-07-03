@@ -1,4 +1,4 @@
-name: Choose Page Test
+name: choose-page-tests
 
 on:
   workflow_dispatch:
