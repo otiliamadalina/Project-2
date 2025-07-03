@@ -11,6 +11,9 @@ on:
           - inventory
           - cart
           - checkout
+          - smoke
+          - regression
+
 
 jobs:
   test:
