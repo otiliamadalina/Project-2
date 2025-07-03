@@ -106,8 +106,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           to: ${{ secrets.TELEGRAM_TO }}
           message: |
-            New commit by ${{ github.actor }}!
-            Commit: ${{ github.event_name}}
+            New commit by ${{ github.actor }}
             Repository: ${{ github.repository }}
             Link: "https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/"
  
