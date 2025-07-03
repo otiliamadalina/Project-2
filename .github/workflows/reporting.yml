@@ -101,15 +101,12 @@ jobs:
         run: echo "### Test results (link available after 20 secs) - https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/" >> $GITHUB_STEP_SUMMARY
 
       - name: Send Inline Telegram Message
-        uses: cbrgm/telegram-github-action@v1
+        uses: appleboy/telegram-action@master
         with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          to: ${{ secrets.TELEGRAM_TO }}
-          
-          message: |
-            New commit by ${{ github.actor }}
-            Workflow: ${{ github.workflow }}
-            Repository: ${{ github.repository }}
-            Link: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
-
+           to: ${{ secrets.TELEGRAM_TO }}
+           token: ${{ secrets.TELEGRAM_TOKEN }}
+           message: |
+             🚀 New commit by ${{ github.actor }}
+             📂 Repository: ${{ github.repository }}
+             🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
  
