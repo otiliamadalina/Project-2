@@ -100,15 +100,20 @@ jobs:
       - name: Write URL in summary
         run: echo "### Test results (link available after 20 secs) - https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/" >> $GITHUB_STEP_SUMMARY
 
+      - name: Get Moldova timestamp
+        id: moldova_time
+        run: echo "timestamp=$(TZ='Europe/Chisinau' date '+%Y-%m-%d %H:%M:%S %Z')" >> "$GITHUB_OUTPUT"
+
       - name: Send Inline Telegram Message
         uses: appleboy/telegram-action@master
         with:
            to: ${{ secrets.TELEGRAM_TO }}
            token: ${{ secrets.TELEGRAM_TOKEN }}
            message: |
-             🚀 New commit by ${{ github.actor }}
+             🚀 New commit by: ${{ github.actor }}
              📂 Repository: ${{ github.repository }}
              🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
+             🕒 Time: ${{ steps.moldova_time.outputs.timestamp }}
 
       - name: Send a request to webhook
         run: |
@@ -118,8 +123,8 @@ jobs:
             "embeds": [
               {
                 "type": "rich",
-                "title": "🚀 New commit by ${{ github.actor }}",
-                "description": "**📂 Repository:** ${{ github.repository }}\n**📄 Raport:** https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}",
+                "title": "🚀 New commit by: ${{ github.actor }}",
+                "description": "**📂 Repository:** ${{ github.repository }}\n**🔗 Raport:** https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}\n**🕒 Time:** ${{ steps.moldova_time.outputs.timestamp }}",
                 "color": 2123412,
                 "author": {
                   "name": "${{ github.actor }}",
