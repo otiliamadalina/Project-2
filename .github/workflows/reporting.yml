@@ -109,5 +109,5 @@ jobs:
             New commit by ${{ github.actor }}!
             Commit: ${{ github.workflow}}
             Repository: ${{ github.repository }}
-            Link: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/
+            Link: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/ppp
  
