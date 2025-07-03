@@ -107,9 +107,10 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           parse-mode: html
           message: |
-            New commit by ${{ github.actor }}\!
-            Commit\: ${{ github.workflow }}
-            Repository\: ${{ github.repository }}
-            Link\: https\:\/\/${{ github.repository_owner }}\.github\.io\/Project\-2\/${{ steps.timestampid.outputs.timestamp }}\/
+            <b>New commit by:</b> <code>${{ github.actor }}</code><br>
+            <b>Commit:</b> <code>${{ github.workflow }}</code><br>
+            <b>Repository:</b> <code>${{ github.repository }}</code><br>
+            <b>Link:</b> https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/
+
 
  
