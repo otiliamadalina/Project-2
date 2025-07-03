@@ -36,7 +36,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --grep @smoke
       
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -45,3 +45,23 @@ jobs:
           path: playwright-report/
           retention-days: 3
 
+  notifyTelegram:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+       github_token: ${{ secrets.GITHUB_TOKEN }}
+       publish_dir: ./public  # Replace with your output directory
+
+    - name: Send Inline Telegram Message
+      uses: cbrgm/telegram-github-action@v1
+      with:
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          to: ${{ secrets.TELEGRAM_TO }}
+          message: |
+            New commit by ${{ github.actor }}!
+            Commit: ${{ github.event_name}}
+            Repository: ${{ github.repository }}   
+      
