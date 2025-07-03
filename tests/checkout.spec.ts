@@ -28,7 +28,7 @@ test.describe(
   "Checkout tests",
   { tag: ["@checkout", "@regression"] },
   async () => {
-    test("SauceDemo Verify Checkout Page", async ({ app }) => {
+    test("SauceDemo Verify Checkout Page",{ tag: ["@smoke"] }, async ({ app }) => {
       await test.step("Products Title", async () => {
         await app.inventory.checkProductHeader(
           strings.inventoryPage.productHeader
