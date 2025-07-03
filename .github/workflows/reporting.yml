@@ -109,4 +109,28 @@ jobs:
              🚀 New commit by ${{ github.actor }}
              📂 Repository: ${{ github.repository }}
              🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
- 
+
+      - name: Send a request to webhook
+        run: |
+          RESPONSE=$(curl -H "Content-Type: application/json" -X POST -d '{
+            "username": "GitHub",
+            "content": "@everyone",
+            "embeds": [
+              {
+                "type": "rich",
+                "title": "New Changes",
+                "description": "New changes on DroneGPS repository by ${{ github.actor }}",
+                "color": 2123412,
+                "thumbnail": {
+                  "url": "https://avatars.githubusercontent.com/u/160980408?v=4"
+                },
+                "author": {
+                  "name": "${{ github.actor }}",
+                  "url": "https://github.com/${{ github.actor }}",
+                  "icon_url": "https://avatars.githubusercontent.com/u/${{ github.actor }}?v=4"
+                },
+                "url": "https://github.com/REPO_OWNER/REPO_NAME"
+              }
+            ]
+          }' "${{ secrets.WEBHOOK_URL }}")
+          echo "Webhook server response: $RESPONSE"
