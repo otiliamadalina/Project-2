@@ -102,19 +102,14 @@ jobs:
       - name: Write URL in summary
         run: echo "### Test results (link available after 20 secs) - https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/" >> $GITHUB_STEP_SUMMARY
 
-
-  notifyTelegram:
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Send Inline Telegram Message
-      uses: cbrgm/telegram-github-action@v1
-      with:
+      - name: Send Inline Telegram Message
+        uses: cbrgm/telegram-github-action@v1
+        with:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           to: ${{ secrets.TELEGRAM_TO }}
           message: |
             New commit by ${{ github.actor }}!
             Commit: ${{ github.event_name}}
             Repository: ${{ github.repository }}
-            Link: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/
-      
+            Link: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
+ 
