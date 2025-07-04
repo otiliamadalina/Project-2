@@ -1,43 +1,60 @@
-name: reporting-t~ests
+name: choose-page-tests
 
 on:
-  workflow_dispatch: {}
-  schedule:
-    - cron: "45 9,11,14 * 7-8 1-5"
+  workflow_dispatch:
+    inputs:
+      page:
+        description: "Select page"
+        type: choice
+        options:
+          - login
+          - inventory
+          - cart
+          - checkout
+          - smoke
+          - regression
+
 
 jobs:
-  security-scan:
-    name: Security Scan
+  set-time-stamps:
+    runs-on: ubuntu-latest
+    outputs:
+      timestamp: ${{ steps.timestampid.outputs.timestamp }}
+
+    steps:
+      # We want a unique identifier to be used when we create subdirectories for our github pages with reports
+      - name: Set a timestamp
+        id: timestampid
+        # this will store current time with UTC in outputs.timestamp (eg of value: 20231028_233147Z)
+        run: echo "timestamp=$(date --utc +%Y%m%d_%H%M%SZ)" >> "$GITHUB_OUTPUT"
+      - name: Get Moldova timestamp
+        id: moldova_time
+        run: echo "timestamp=$(TZ='Europe/Chisinau' date '+%Y-%m-%d %H:%M:%S %Z')" >> "$GITHUB_OUTPUT"
+
+
+  run-playwright-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run npm audit for vulnerabilities
-        run: npm audit --audit-level=high
-
-  playwright-tests:
-    name: Playwright Tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Install dependencies
-        run: npm ci
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npx playwright test --grep @smoke
+     
+
+
+      - name: Run Playwright tests for selected page
+        run: |
+          echo "Testing page: ${{ github.event.inputs.page }}"
+          npx playwright test --grep @${{ github.event.inputs.page }} --project=chromium
       
       - name: Upload blob report to GitHub Actions Artifacts
         if: always()
@@ -47,21 +64,14 @@ jobs:
           name: all-blob-reports
           path: blob-report
           retention-days: 14
-
+  
   merge-reports-and-upload:
     # Merge reports after playwright tests, even if some shards have failed
     if: always()
-    needs: [playwright-tests]
+    needs: [run-playwright-tests]
     runs-on: ubuntu-latest
-    outputs:
-      timestamp: ${{ steps.timestampid.outputs.timestamp }}
-    steps:
-      # We want a unique identifier to be used when we create subdirectories for our github pages with reports
-      - name: Set a timestamp
-        id: timestampid
-        # this will store current time with UTC in outputs.timestamp (eg of value: 20231028_233147Z)
-        run: echo "timestamp=$(date --utc +%Y%m%d_%H%M%SZ)" >> "$GITHUB_OUTPUT"
 
+    steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -100,9 +110,19 @@ jobs:
       - name: Write URL in summary
         run: echo "### Test results (link available after 20 secs) - https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}/" >> $GITHUB_STEP_SUMMARY
 
-      - name: Get Moldova timestamp
-        id: moldova_time
-        run: echo "timestamp=$(TZ='Europe/Chisinau' date '+%Y-%m-%d %H:%M:%S %Z')" >> "$GITHUB_OUTPUT"
+
+
+
+
+
+
+  send-message-to-chats:
+    if: always()
+    needs: [run-playwright-tests]
+    runs-on: ubuntu-latest
+    steps:
+      
+      
 
       - name: Send Inline Telegram Message
         uses: appleboy/telegram-action@master
@@ -113,7 +133,7 @@ jobs:
              🚀 New commit by: ${{ github.actor }}
              📂 Repository: ${{ github.repository }}
              🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
-             🕒 Time: ${{ steps.moldova_time.outputs.timestamp }}
+             🕒 Time: ${{ job.set-time-stamps.moldova_time.outputs.timestamp }}
 
       - name: Send a request to webhook
         run: |
@@ -135,3 +155,5 @@ jobs:
             ]
           }' "${{ secrets.WEBHOOK_URL }}")
           echo "Webhook server response: $RESPONSE"
+
+  
