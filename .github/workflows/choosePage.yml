@@ -104,19 +104,19 @@ jobs:
         id: moldova_time
         run: echo "timestamp=$(TZ='Europe/Chisinau' date '+%Y-%m-%d %H:%M:%S %Z')" >> "$GITHUB_OUTPUT"
 
-
       - name: Set test result status
-        id: test_status
+        id: test-status
         run: |
-          if [ "${{ needs.run-tests.result }}" == "success" ]; then
-            echo "STATUS=✅ Test has succeeded" >> "$GITHUB_OUTPUT"
+           if [ "${{ needs.run-tests.result }}" == "success" ]; then
+           echo "STATUS=✅ Test has succeeded" >> "$GITHUB_OUTPUT"
             echo "COLOR=#2EB67D" >> "$GITHUB_OUTPUT"
-          elif [ "${{ needs.test.result }}" == "failure" ]; then
-            echo "STATUS=❌ Test has failed" >> "$GITHUB_OUTPUT"
-            echo "COLOR=#E01E5A" >> "$GITHUB_OUTPUT"
-          else
-            echo "STATUS=⏹️ Test was cancelled" >> "$GITHUB_OUTPUT"
-            echo "COLOR=#808080" >> "$GITHUB_OUTPUT"
+           elif [ "${{ needs.run-tests.result }}" == "failure" ]; then
+           echo "STATUS=❌ Test has failed" >> "$GITHUB_OUTPUT"
+           echo "COLOR=#E01E5A" >> "$GITHUB_OUTPUT"
+            else
+              echo "STATUS=⏹️ Test was cancelled" >> "$GITHUB_OUTPUT"
+              echo "COLOR=#808080" >> "$GITHUB_OUTPUT"
+              fi
 
       - name: Send Inline Telegram Message
         uses: appleboy/telegram-action@master
@@ -128,7 +128,7 @@ jobs:
              📂 Repository: ${{ github.repository }}
              🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
              🕒 Time: ${{ steps.moldova_time.outputs.timestamp }}
-                 Status: ${{ steps.test_status.outputs.STATUS }}
+                 Status: ${{ steps.test-status.outputs.STATUS }}
 
 
 
@@ -142,7 +142,7 @@ jobs:
               {
                 "type": "rich",
                 "title": "🚀 New commit by: ${{ github.actor }}",
-                "description": "**📂 Repository:** ${{ github.repository }}\n**🔗 Report:** https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}\n**🕒 Time:** ${{ steps.moldova_time.outputs.timestamp }}\n** Status:** ${{ steps.test_status.outputs.STATUS }}",
+                "description": "**📂 Repository:** ${{ github.repository }}\n**🔗 Report:** https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}\n**🕒 Time:** ${{ steps.moldova_time.outputs.timestamp }}\n** Status:** ${{ steps.test-status.outputs.STATUS }}",
                 "color": 2123412,
                 "author": {
                   "name": "${{ github.actor }}",

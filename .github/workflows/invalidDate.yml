@@ -94,7 +94,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ steps.timestampid.outputs.timestamp }}
+          name: playwright-report-${{ needs.set-time-stamps.outputs.timestamp }}
           path: playwright-report
           retention-days: 14
 
@@ -132,8 +132,8 @@ jobs:
            message: |
              🚀 New commit by: ${{ github.actor }}
              📂 Repository: ${{ github.repository }}
-             🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
-             🕒 Time: ${{ job.set-time-stamps.moldova_time.outputs.timestamp }}
+             🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ needs.set-time-stamps.outputs.timestamp }}
+             🕒 Time: ${{ needs.set-time-stamps.outputs.moldova_time }}
 
       - name: Send a request to webhook
         run: |
