@@ -2,7 +2,7 @@ import routes from "../resources/routes.json";
 import strings from "../resources/strings.json";
 import test from "./test";
 
-test.describe("Cart tests", { tag: ["@smoke"] }, () => {
+test.describe("Cart tests", { tag: ["@smoke", "@cart"] }, () => {
 test.beforeEach(async ({ app }) => {
   await test.step("Access Login Page", async () => {
     console.log("Access login page.");
