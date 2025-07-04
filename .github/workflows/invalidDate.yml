@@ -1,4 +1,4 @@
-name: choose-page-tests
+name: invalid-data
 
 on:
   workflow_dispatch:
