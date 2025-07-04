@@ -11,8 +11,14 @@ on:
           - inventory
           - cart
           - checkout
+      type:
+        description: "Choose type of test"
+        type: choice
+        required: true
+        options:
           - smoke
           - regression
+
 
 
 jobs:
