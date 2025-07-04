@@ -108,14 +108,14 @@ jobs:
       - name: Set test result status
         id: test_status
         run: |
-          if [ "${{ needs.test.result }}" == "success" ]; then
-            echo "STATUS=✅ Test suite *E2E smoke tests* has succeeded" >> "$GITHUB_OUTPUT"
+          if [ "${{ needs.run-tests.result }}" == "success" ]; then
+            echo "STATUS=✅ Test has succeeded" >> "$GITHUB_OUTPUT"
             echo "COLOR=#2EB67D" >> "$GITHUB_OUTPUT"
           elif [ "${{ needs.test.result }}" == "failure" ]; then
-            echo "STATUS=❌ Test suite *E2E smoke tests* has failed" >> "$GITHUB_OUTPUT"
+            echo "STATUS=❌ Test has failed" >> "$GITHUB_OUTPUT"
             echo "COLOR=#E01E5A" >> "$GITHUB_OUTPUT"
           else
-            echo "STATUS=⏹️ Test suite *E2E smoke tests* was cancelled" >> "$GITHUB_OUTPUT"
+            echo "STATUS=⏹️ Test was cancelled" >> "$GITHUB_OUTPUT"
             echo "COLOR=#808080" >> "$GITHUB_OUTPUT"
 
       - name: Send Inline Telegram Message
@@ -142,7 +142,7 @@ jobs:
               {
                 "type": "rich",
                 "title": "🚀 New commit by: ${{ github.actor }}",
-                "description": "**📂 Repository:** ${{ github.repository }}\n**🔗 Report:** https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}\n**🕒 Time:** ${{ steps.moldova_time.outputs.timestamp }}\n Status:** ${{ steps.test_status.outputs.STATUS }}",
+                "description": "**📂 Repository:** ${{ github.repository }}\n**🔗 Report:** https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}\n**🕒 Time:** ${{ steps.moldova_time.outputs.timestamp }}\n** Status:** ${{ steps.test_status.outputs.STATUS }}",
                 "color": 2123412,
                 "author": {
                   "name": "${{ github.actor }}",
