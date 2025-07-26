@@ -117,6 +117,17 @@ jobs:
               echo "STATUS=⏹️ Test was cancelled" >> "$GITHUB_OUTPUT"
               echo "COLOR=#808080" >> "$GITHUB_OUTPUT"
               fi
+              
+      - name: Set trigger type
+        id: trigger
+        run: |
+           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+           echo "trigger=manual" >> "$GITHUB_OUTPUT"
+           elif [ "${{ github.event_name }}" == "schedule" ]; then
+           echo "trigger=scheduled" >> "$GITHUB_OUTPUT"
+            else
+           echo "trigger=unknown" >> "$GITHUB_OUTPUT"
+           fi
 
       - name: Send Inline Telegram Message
         uses: appleboy/telegram-action@master
@@ -125,6 +136,7 @@ jobs:
            token: ${{ secrets.TELEGRAM_TOKEN }}
            message: |
              🚀 New commit by: ${{ github.actor }}
+             🔍 Trigger: ${{ steps.trigger.outputs.trigger }}
              📂 Repository: ${{ github.repository }}
              🔗 Report: https://${{ github.repository_owner }}.github.io/Project-2/${{ steps.timestampid.outputs.timestamp }}
              🕒 Time: ${{ steps.moldova_time.outputs.timestamp }}
