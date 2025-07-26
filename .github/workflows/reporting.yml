@@ -104,6 +104,20 @@ jobs:
         id: moldova_time
         run: echo "timestamp=$(TZ='Europe/Chisinau' date '+%Y-%m-%d %H:%M:%S %Z')" >> "$GITHUB_OUTPUT"
 
+      - name: Set test result status
+        id: test-status
+        run: |
+           if [ "${{ needs.playwright-tests.result }}" == "success" ]; then
+           echo "STATUS=✅ Test has succeeded" >> "$GITHUB_OUTPUT"
+            echo "COLOR=#2EB67D" >> "$GITHUB_OUTPUT"
+           elif [ "${{ needs.playwright-tests.result }}" == "failure" ]; then
+           echo "STATUS=❌ Test has failed" >> "$GITHUB_OUTPUT"
+           echo "COLOR=#E01E5A" >> "$GITHUB_OUTPUT"
+            else
+              echo "STATUS=⏹️ Test was cancelled" >> "$GITHUB_OUTPUT"
+              echo "COLOR=#808080" >> "$GITHUB_OUTPUT"
+              fi
+
       - name: Send Inline Telegram Message
         uses: appleboy/telegram-action@master
         with:
