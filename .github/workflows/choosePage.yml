@@ -46,7 +46,6 @@ jobs:
           path: blob-report
           retention-days: 14
 
-
           
   merge-reports-and-upload:
     # Merge reports after playwright tests, even if some shards have failed
@@ -56,7 +55,6 @@ jobs:
     outputs:
       timestamp: ${{ steps.timestampid.outputs.timestamp }}
     steps:
-      
       # We want a unique identifier to be used when we create subdirectories for our github pages with reports
       - name: Set a timestamp
         id: timestampid
