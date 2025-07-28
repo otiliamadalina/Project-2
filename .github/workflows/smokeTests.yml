@@ -4,8 +4,14 @@ on:
   workflow_dispatch: {}
 
 jobs:
+    lint-tests:
+      runs-on: ubuntu-latest
+
     smoke-tests:
+     if: always()
+     needs: [lint-tests]
      runs-on: ubuntu-latest
+
      steps:
        - uses: actions/checkout@v4
 
