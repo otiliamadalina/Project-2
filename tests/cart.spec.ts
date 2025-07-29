@@ -5,18 +5,17 @@ import test from "./test";
 
 test.describe("Cart tests", { tag: ["@smoke", "@cart"] }, async () => {
 test.beforeEach(async ({ app }) => {
+
   Given("the user accesses the Login Page");
   await test.step("Access Login Page", async () => {
-    console.log("Access login page.");
     await app.base.navigateTo(routes.loginPage);
     await app.navigation.pageUrlAsExpected(routes.loginPage);
     await app.common.browserTabTitleAsExpected(strings.loginPage.pageTitle);
     await app.login.logoIsVisible();
   });
 
+  Then("the user completes login form and moves forward");
   await test.step("Login", async () => {
-    console.log("Login.");
-    Then("the user completes login form and moves forward")
     await app.login.checkLoginFields();
     await app.login.completeLoginForm(
       strings.loginPage.acceptedUsernames.standardUser,
@@ -26,14 +25,15 @@ test.beforeEach(async ({ app }) => {
   });
 
   Then("the user sees correct inventory URL")
-  await test.step("Inventory URL", async () => {
+  await test.step("Verify inventory URL", async () => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
 });
 
 test("SauceDemo verify Cart Products", async ({ app }) => {
+
     Then("the user sees products title");
-    await test.step("Products Title", async () => {
+    await test.step("Verify products title", async () => {
       await app.inventory.checkProductHeader();
     });
 
