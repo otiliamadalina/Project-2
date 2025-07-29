@@ -15,7 +15,6 @@ export default class AnnotateUtils {
         });
 
         this.test.step(`${step}: ${annotation}`, async () => {
-            // Aici poți pune logică dacă vrei ceva executabil
         });
 
         return `${step} ${annotation}`;

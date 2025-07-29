@@ -5,7 +5,7 @@ import test from "./test";
 
 test.describe("Cart tests", { tag: ["@smoke", "@cart"] }, async () => {
 test.beforeEach(async ({ app }) => {
-  Given("I access Login Page");
+  Given("the user accesses the Login Page");
   await test.step("Access Login Page", async () => {
     console.log("Access login page.");
     await app.base.navigateTo(routes.loginPage);
@@ -16,7 +16,7 @@ test.beforeEach(async ({ app }) => {
 
   await test.step("Login", async () => {
     console.log("Login.");
-    Then("I complete login for and move forward")
+    Then("the user completes login form and moves forward")
     await app.login.checkLoginFields();
     await app.login.completeLoginForm(
       strings.loginPage.acceptedUsernames.standardUser,
@@ -25,32 +25,37 @@ test.beforeEach(async ({ app }) => {
     await app.login.checkLoginButton();
   });
 
-  Then("I see correct URL, inventory URL")
+  Then("the user sees correct inventory URL")
   await test.step("Inventory URL", async () => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
 });
 
 test("SauceDemo verify Cart Products", async ({ app }) => {
+    Then("the user sees products title");
     await test.step("Products Title", async () => {
       await app.inventory.checkProductHeader();
     });
 
+    Then("the user sees products");
     await test.step("Verify products", async () => {
       console.log("Running verifyProducts.");
       await app.inventory.verifyProducts();
     });
 
+    Then("the user adds products to cart");
     await test.step("Add to Cart", async () => {
       console.log("Running add to cart.");
       await app.inventory.addProductsToCart();
     });
 
+    Then("the user goes to cart");
     await test.step("Go to Cart", async () => {
       console.log("Running go to cart.");
       await app.inventory.goToCart();
     });
 
+    Then("the user sees cart products");
     await test.step("Verify Cart Products", async () => {
       console.log("Running cart products.");
       await app.cart.verifyCartProducts();
