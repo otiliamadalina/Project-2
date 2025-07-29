@@ -1,9 +1,11 @@
 import routes from "../resources/routes.json";
 import strings from "../resources/strings.json";
+import { Given, Then } from "../utils/adnotations";
 import test from "./test";
 
-test.describe("Cart tests", { tag: ["@smoke", "@cart"] }, () => {
+test.describe("Cart tests", { tag: ["@smoke", "@cart"] }, async () => {
 test.beforeEach(async ({ app }) => {
+  Given("I access Login Page");
   await test.step("Access Login Page", async () => {
     console.log("Access login page.");
     await app.base.navigateTo(routes.loginPage);
@@ -14,6 +16,7 @@ test.beforeEach(async ({ app }) => {
 
   await test.step("Login", async () => {
     console.log("Login.");
+    Then("I complete login for and move forward")
     await app.login.checkLoginFields();
     await app.login.completeLoginForm(
       strings.loginPage.acceptedUsernames.standardUser,
@@ -22,6 +25,7 @@ test.beforeEach(async ({ app }) => {
     await app.login.checkLoginButton();
   });
 
+  Then("I see correct URL, inventory URL")
   await test.step("Inventory URL", async () => {
     await app.navigation.pageUrlAsExpected(routes.inventoryPage);
   });
@@ -29,9 +33,7 @@ test.beforeEach(async ({ app }) => {
 
 test("SauceDemo verify Cart Products", async ({ app }) => {
     await test.step("Products Title", async () => {
-      await app.inventory.checkProductHeader(
-        strings.inventoryPage.productHeader
-      );
+      await app.inventory.checkProductHeader();
     });
 
     await test.step("Verify products", async () => {
