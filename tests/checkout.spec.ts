@@ -3,35 +3,35 @@ import strings from "../resources/strings.json";
 import { And, Given, Then, When } from "../utils/adnotations";
 import test from "./test";
 
+test.beforeEach(async ({ app }) => {
+  Given("the user accesses the Login Page");
+  await test.step("Access Login Page", async () => {
+    await app.base.navigateTo(routes.loginPage);
+    await app.navigation.pageUrlAsExpected(routes.loginPage);
+    await app.common.browserTabTitleAsExpected(strings.loginPage.pageTitle);
+    await app.login.logoIsVisible();
+  });
+
+  Then("the user completes login form and moves forward");
+  await test.step("Login", async () => {
+    await app.login.checkLoginFields();
+    await app.login.completeLoginForm(
+      strings.loginPage.acceptedUsernames.standardUser,
+      strings.loginPage.passwordForAllUsers
+    );
+    await app.login.checkLoginButton();
+  });
+
+  Then("the user sees correct inventory URL");
+  await test.step("Verify inventory URL", async () => {
+    await app.navigation.pageUrlAsExpected(routes.inventoryPage);
+  });
+});
+
 test.describe(
   "Checkout tests",
   { tag: ["@checkout", "@regression"] },
   async () => {
-    test.beforeEach(async ({ app }) => {
-      Given("the user accesses the Login Page");
-      await test.step("Access Login Page", async () => {
-        await app.base.navigateTo(routes.loginPage);
-        await app.navigation.pageUrlAsExpected(routes.loginPage);
-        await app.common.browserTabTitleAsExpected(strings.loginPage.pageTitle);
-        await app.login.logoIsVisible();
-      });
-
-      Then("the user completes login form and moves forward");
-      await test.step("Login", async () => {
-        await app.login.checkLoginFields();
-        await app.login.completeLoginForm(
-          strings.loginPage.acceptedUsernames.standardUser,
-          strings.loginPage.passwordForAllUsers
-        );
-        await app.login.checkLoginButton();
-      });
-
-      Then("the user sees correct inventory URL");
-      await test.step("Verify inventory URL", async () => {
-        await app.navigation.pageUrlAsExpected(routes.inventoryPage);
-      });
-    });
-
     test("SauceDemo Verify Checkout Page @smoke", async ({ app }) => {
       Then("the user sees products title");
       await test.step("Verify products title", async () => {

@@ -3,7 +3,7 @@ import strings from "../resources/strings.json";
 import { Given, Then } from "../utils/adnotations";
 import test from "./test";
 
-test.describe("Cart tests", { tag: ["@smoke", "@cart"] }, async () => {
+
 test.beforeEach(async ({ app }) => {
 
   Given("the user accesses the Login Page");
@@ -32,6 +32,7 @@ test.beforeEach(async ({ app }) => {
   });
 });
 
+test.describe("Cart tests", { tag: ["@smoke", "@cart"] }, async () => {
 test("SauceDemo verify Cart Products", async ({ app }) => {
 
     Then("the user sees products title");
