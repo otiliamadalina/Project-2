@@ -14,6 +14,7 @@ export default class InventoryActions extends BaseActions {
 
   async checkProductHeader() {
     await expect(this.inventory.productHeader).toBeVisible();
+    await expect(this.inventory.productHeader).toHaveText(strings.inventoryPage.productHeader);
   }
 
   async checkMenuButton() {
