@@ -8,6 +8,7 @@ test.beforeEach(async ({ app }) => {
 
   Given("the user accesses the Login Page");
   await test.step("Access Login Page", async () => {
+    console.log("Access login page.");
     await app.base.navigateTo(routes.loginPage);
     await app.navigation.pageUrlAsExpected(routes.loginPage);
     await app.common.browserTabTitleAsExpected(strings.loginPage.pageTitle);
@@ -16,6 +17,7 @@ test.beforeEach(async ({ app }) => {
 
   Then("the user completes login form and moves forward");
   await test.step("Login", async () => {
+    console.log("Login.");
     await app.login.checkLoginFields();
     await app.login.completeLoginForm(
       strings.loginPage.acceptedUsernames.standardUser,
@@ -34,6 +36,7 @@ test("SauceDemo verify Cart Products", async ({ app }) => {
 
     Then("the user sees products title");
     await test.step("Verify products title", async () => {
+      console.log("Running checkProductHeader.");
       await app.inventory.checkProductHeader();
     });
 
