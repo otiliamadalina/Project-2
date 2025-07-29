@@ -15,7 +15,7 @@ importers:
         specifier: ^1.54.1
         version: 1.54.1
       '@types/node':
-        specifier: ^24.0.3
+        specifier: ^24.1.0
         version: 24.1.0
       eslint:
         specifier: ^9.32.0
